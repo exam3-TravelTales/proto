@@ -15,8 +15,8 @@ service User {
   rpc CheckRefreshToken(CheckRefreshTokenRequest) returns (CheckRefreshTokenResponse);
   rpc Logout(Void) returns (BoolResponse);
   rpc Activity(UserId) returns (ActivityResponse);
-  rpc Follow(UserId) returns (FollowResponse);
-  rpc Followers(UserId) returns (FollowersResponse);
+  rpc Follow(FollowRequest) returns (FollowResponse);
+  rpc Followers(FollowersRequest) returns (FollowersResponse);
 }
 
 message UserInfo{
@@ -152,4 +152,16 @@ message Followers{
 message Tokens{
   string accestoken=1;
   string refreshtoken=2;
+}
+
+message FollowRequest{
+  string follower_id=1;
+  string following_id=2;
+}
+
+message FollowersRequest{
+  string user_id=1;
+  int64 total=2;
+  int64 offset=3;
+  int64 limit=4;
 }
