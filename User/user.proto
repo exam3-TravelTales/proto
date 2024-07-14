@@ -6,7 +6,7 @@ package user;
 
 service User {
   rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Login (LoginRequest) returns (UserInfo);
   rpc GetProfile(UserId) returns (GetProfileResponse);
   rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
   rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
@@ -49,10 +49,6 @@ message LoginRequest{
   string password=2;
 }
 
-message LoginResponse{
-  string access_token=1;
-  string refresh_token=2;
-}
 
 message GetProfileResponse{
   string id=1;
@@ -70,9 +66,10 @@ message UserId{
 }
 
 message UpdateProfileRequest{
-  string full_name=1;
-  string bio=2;
-  int64 countries_visited=3;
+  string id=1;
+  string full_name=2;
+  string bio=3;
+  int64 countries_visited=4;
 }
 
 message UpdateProfileResponse{
@@ -94,13 +91,13 @@ message users{
 
 message GetUsersRequest{
   int64 limit=1;
-  int64 page=2;
+  int64 offset=2;
 }
 
 message GetUsersResponse{
-  users users=1;
+  repeated users users=1;
   int64 total=2;
-  int64 page=3;
+  int64 offset =3;
   int64 limit=4;
 }
 
@@ -139,9 +136,9 @@ message FollowResponse{
 }
 
 message FollowersResponse{
-  Followers followers=1;
+  repeated Followers followers=1;
   int64 total=2;
-  int64 page=3;
+  int64 offset=3;
   int64 limit=4;
 }
 
@@ -149,4 +146,9 @@ message Followers{
   string id=1;
   string username=2;
   string full_name=3;
+}
+
+message Tokens{
+  string accestoken=1;
+  string refreshtoken=2;
 }
