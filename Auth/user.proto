@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option go_package = "genproto/authentication";
+option go_package = "genproto/users";
 
-package authentication;
+package user;
 
-service Authentication {
+service User {
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc GetProfile(UserId) returns (GetProfileResponse);
