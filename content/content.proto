@@ -7,7 +7,7 @@ package content;
 service Content {
   rpc CreateStories(CreateStoriesRequest) returns(CreateStoriesResponse);
   rpc UpdateStories(UpdateStoriesReq) returns (UpdateStoriesRes);
-  rpc DeleteStories(DeleteStoriesReq) returns (Void);
+  rpc DeleteStories(Story_id) returns (Void);
   rpc GetAllStories(GetAllStoriesReq) returns (GetAllStoriesRes);
   rpc GetStory(Story_id) returns (GetStoryRes);
   rpc CommentStory(CommentStoryReq) returns (CommentStoryRes);
@@ -53,9 +53,6 @@ message UpdateStoriesRes{
   repeated string tags=5;
   string author_id=6;
   string updated_at=7;
-}
-message DeleteStoriesReq{
-  string id=1;
 }
 
 message GetAllStoriesReq{
@@ -119,7 +116,7 @@ message Comments{
 }
 
 message GetCommentsOfStoryRes{
-  Comments comments=1;
+  repeated Comments comments=1;
   int64 total=2;
   int64 offset=3;
   int64 limit=4;
@@ -169,4 +166,5 @@ message ItinerariesRes{
 message UpdateItinerariesReq{
   string title=1;
   string description=2;
+  string id=3;
 }
