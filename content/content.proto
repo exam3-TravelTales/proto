@@ -11,7 +11,7 @@ service Content {
   rpc GetAllStories(GetAllStoriesReq) returns (GetAllStoriesRes);
   rpc GetStory(Story_id) returns (GetStoryRes);
   rpc CommentStory(CommentStoryReq) returns (CommentStoryRes);
-  rpc GetCommentsOfStory(Story_id) returns(GetCommentsOfStoryRes);
+  rpc GetCommentsOfStory(GetCommentsOfStoryReq) returns(GetCommentsOfStoryRes);
   rpc Like(LikeReq) returns (LikeRes);
   rpc Itineraries(ItinerariesReq) returns (ItinerariesRes);
   rpc UpdateItineraries(UpdateItinerariesReq) returns (ItinerariesRes);
@@ -28,6 +28,7 @@ service Content {
   rpc GetTips(GetTipsReq) returns (GetTipsRes);
   rpc GetUserStat(GetUserStatReq) returns (GetUserStatRes);
 }
+
 
 message Void{}
 
@@ -132,6 +133,12 @@ message GetCommentsOfStoryRes{
   int64 total=2;
   int64 offset=3;
   int64 limit=4;
+}
+
+message GetCommentsOfStoryReq{
+  string story_id=1;
+  int64 offset=2;
+  int64 limit=3;
 }
 
 message LikeReq{
@@ -288,6 +295,7 @@ message CreateTipsReq{
   string title=1;
   string content=2;
   string category=3;
+  string user_id=4;
 }
 
 message CreateTipsRes{
