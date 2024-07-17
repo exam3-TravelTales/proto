@@ -1,18 +1,16 @@
 syntax = "proto3";
 
-option go_package = "genproto/content";
+option go_package = "genproto/itineraries";
 
-package content;
+package itineraries;
 
-service Content {
-  rpc GetDestinations(GetDestinationsReq) returns (GetDestinationsRes);
-  rpc GetDestinationsById(GetDestinationsByIdReq) returns (GetDestinationsByIdRes);
-  rpc SendMessage(SendMessageReq) returns (SendMessageRes);
-  rpc GetMessages(GetMessagesReq) returns (GetMessagesRes);
-  rpc CreateTips(CreateTipsReq) returns (CreateTipsRes);
-  rpc GetTips(GetTipsReq) returns (GetTipsRes);
-  rpc GetUserStat(GetUserStatReq) returns (GetUserStatRes);
-  rpc TopDestinations(Void) returns (Answer);
+service Itineraries {
+  rpc Itineraries(ItinerariesReq) returns (ItinerariesRes);
+  rpc UpdateItineraries(UpdateItinerariesReq) returns (ItinerariesRes);
+  rpc DeleteItineraries(Story_id) returns (Void);
+  rpc GetItineraries(GetItinerariesReq) returns (GetItinerariesRes);
+  rpc GetItinerariesById(Story_id) returns (GetItinerariesByIdRes);
+  rpc CommentItineraries(CommentItinerariesReq) returns (CommentItinerariesRes);
 }
 
 
@@ -22,24 +20,12 @@ message Story_id{
   string id=1;
 }
 
-message Answer{
-  repeated TopDestinationsRes topdestinations=1;
-}
-
-message TopDestinationsRes{
-  string country=1;
-  string description=2;
-  string best_time_to_visit=3;
-  int64 popularity_score=4;
-}
-
 
 message Author{
   string user_id=1;
   string username=2;
   string full_name=3;
 }
-
 
 message ItinerariesReq{
   string user_id=1;
@@ -118,13 +104,6 @@ message GetDestinationsReq{
   string name=3;
 }
 
-message Destinations{
-  string id=1;
-  string name=2;
-  string country=3;
-  string description=4;
-  string currency=5;
-}
 message GetDestinationsRes{
   repeated Destinations destination=1;
   int64 total=2;
@@ -132,6 +111,13 @@ message GetDestinationsRes{
   int64 limit=4;
 }
 
+message Destinations{
+  string id=1;
+  string name=2;
+  string country=3;
+  string description=4;
+  string currency=5;
+}
 
 message GetDestinationsByIdReq{
   string id=1;

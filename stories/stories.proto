@@ -1,0 +1,140 @@
+syntax = "proto3";
+
+option go_package = "genproto/story";
+
+package story;
+
+service Story {
+  rpc CreateStories(CreateStoriesRequest) returns(CreateStoriesResponse);
+  rpc UpdateStories(UpdateStoriesReq) returns (UpdateStoriesRes);
+  rpc DeleteStories(Story_id) returns (Void);
+  rpc GetAllStories(GetAllStoriesReq) returns (GetAllStoriesRes);
+  rpc GetStory(Story_id) returns (GetStoryRes);
+  rpc CommentStory(CommentStoryReq) returns (CommentStoryRes);
+  rpc GetCommentsOfStory(GetCommentsOfStoryReq) returns(GetCommentsOfStoryRes);
+  rpc Like(LikeReq) returns (LikeRes);
+}
+
+
+message Void{}
+
+message Story_id{
+  string id=1;
+}
+
+
+message CreateStoriesRequest{
+  string title=1;
+  string content=2;
+  string location=3;
+  repeated string tags=4;
+  string user_id=5;
+}
+message CreateStoriesResponse{
+  string id=1;
+  string title=2;
+  string content=3;
+  string location=4;
+  repeated string tags=5;
+  string author_id=6;
+  string created_at=7;
+}
+
+message UpdateStoriesReq{
+  string id=1;
+  string title=2;
+  string content=3;
+}
+message UpdateStoriesRes{
+  string id=1;
+  string title=2;
+  string content=3;
+  string location=4;
+  repeated string tags=5;
+  string author_id=6;
+  string updated_at=7;
+}
+
+message GetAllStoriesReq{
+  int64 limit=1;
+  int64 offset=2;
+}
+
+message GetAllStoriesRes{
+  repeated Stories stories=1;
+  int64 total=2;
+  int64 offset=3;
+  int64 limit=4;
+}
+
+message Author{
+  string user_id=1;
+  string username=2;
+  string full_name=3;
+}
+
+message Stories{
+  string story_id=1;
+  string title=2;
+  Author author=3;
+  string location=4;
+  int64 likes_count=5;
+  int64 comments_count=6;
+}
+
+message GetStoryRes{
+  string id=1;
+  string title=2;
+  string content=3;
+  string location=4;
+  repeated string tags=5;
+  Author author=6;
+  int64 likes_count=7;
+  int64 comments_count=8;
+  string created_at=9;
+  string updated_at=10;
+}
+
+message CommentStoryReq{
+  string story_id=1;
+  string content=2;
+  string author_id=3;
+}
+message CommentStoryRes{
+  string id=1;
+  string content=2;
+  string author_id=3;
+  string story_id=4;
+  string created_at=5;
+}
+
+message Comments{
+  string id=1;
+  string content=2;
+  Author author=3;
+  string created_at=4;
+}
+
+message GetCommentsOfStoryRes{
+  repeated Comments comments=1;
+  int64 total=2;
+  int64 offset=3;
+  int64 limit=4;
+}
+
+message GetCommentsOfStoryReq{
+  string story_id=1;
+  int64 offset=2;
+  int64 limit=3;
+}
+
+message LikeReq{
+  string user_id=1;
+  string story_id=2;
+}
+
+message LikeRes{
+  string user_id=1;
+  string story_id=2;
+  string liked_at=3;
+}
